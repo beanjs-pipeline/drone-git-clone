@@ -1,0 +1,19 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+  - name: push image
+    image: plugins/docker
+    settings:
+      repo: beanjs/drone-git-clone
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      tags:
+        - ${DRONE_TAG}
+        - latest
+    when:
+      event:
+        - tag
