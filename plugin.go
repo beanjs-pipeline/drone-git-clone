@@ -2,6 +2,7 @@ package drone_git_clone
 
 import (
 	"errors"
+	"log"
 	"net/url"
 	"os"
 	"os/exec"
@@ -31,10 +32,11 @@ func (p *Plugin) run(c *exec.Cmd) error {
 	}
 
 	cacheDir := path.Join(cwd, p.Cache)
-	if err := os.MkdirAll(cacheDir, 0700); err != nil {
+	if err := os.MkdirAll(cacheDir, 0666); err != nil {
 		return err
 	}
 
+	log.Printf("cache dir: %s", cacheDir)
 	c.Env = os.Environ()
 	c.Stderr = os.Stderr
 	c.Stdin = os.Stdin

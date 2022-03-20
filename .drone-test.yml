@@ -1,0 +1,12 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+  - name: clone test
+    image: beanjs/drone-git-clone
+    pull: never
+    settings:
+      remote: https://github.com/beanjs-pipeline/drone-git-clone.git
+      cache: ./cache
+      branch: main
