@@ -32,7 +32,7 @@ func (p *Plugin) run(c *exec.Cmd) error {
 	}
 
 	cacheDir := path.Join(cwd, p.Cache)
-	if err := os.MkdirAll(cacheDir, 0666); err != nil {
+	if err := os.MkdirAll(cacheDir, 0777); err != nil {
 		return err
 	}
 
