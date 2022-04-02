@@ -16,4 +16,5 @@ steps:
       password: <bbb>
       cache: ./cache
       branch: master
+      recursive: false
 ```

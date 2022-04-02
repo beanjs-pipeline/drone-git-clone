@@ -10,7 +10,7 @@ import (
 
 func main() {
 	app := cli.NewApp()
-	app.Version = "1.0.0"
+	app.Version = "1.0.1"
 	app.Name = "Drone git clone"
 	app.Usage = "clone a repository"
 	app.Copyright = "@ 2022 beanjs"
@@ -23,6 +23,11 @@ func main() {
 			Name:   "remote",
 			Usage:  "remote",
 			EnvVar: "PLUGIN_REMOTE",
+		},
+		cli.BoolFlag{
+			Name:   "recursive",
+			Usage:  "recursive",
+			EnvVar: "PLUGIN_RECURSIVE",
 		},
 		cli.StringFlag{
 			Name:   "cache",
@@ -57,11 +62,12 @@ func main() {
 
 func run(c *cli.Context) {
 	p := droneGitClone.Plugin{
-		Remote:   c.String("remote"),
-		Cache:    c.String("cache"),
-		Branch:   c.String("branch"),
-		Username: c.String("username"),
-		Password: c.String("password"),
+		Remote:    c.String("remote"),
+		Cache:     c.String("cache"),
+		Branch:    c.String("branch"),
+		Username:  c.String("username"),
+		Password:  c.String("password"),
+		Recursive: c.Bool("recursive"),
 	}
 
 	if err := p.Exec(); err != nil {

@@ -10,11 +10,12 @@ import (
 )
 
 type Plugin struct {
-	Remote   string
-	Cache    string
-	Branch   string
-	Username string
-	Password string
+	Remote    string
+	Cache     string
+	Branch    string
+	Username  string
+	Password  string
+	Recursive bool
 }
 
 func (p *Plugin) check() error {
@@ -62,7 +63,11 @@ func (p *Plugin) Exec() error {
 		u.User = url.User(p.Username)
 	}
 
-	cloneCmd := exec.Command("git", "clone", u.String(), "-b", p.Branch)
+	cloneCmd := exec.Command("git", "clone", "-b", p.Branch)
+	if p.Recursive {
+		cloneCmd.Args = append(cloneCmd.Args, "--recursive")
+	}
+	cloneCmd.Args = append(cloneCmd.Args, u.String())
 
 	return p.run(cloneCmd)
 }
