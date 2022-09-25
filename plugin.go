@@ -63,10 +63,11 @@ func (p *Plugin) Exec() error {
 		u.User = url.User(p.Username)
 	}
 
-	cloneCmd := exec.Command("git", "clone", "-b", p.Branch, "--depth 1")
+	cloneCmd := exec.Command("git", "clone", "-b", p.Branch)
 	if p.Recursive {
 		cloneCmd.Args = append(cloneCmd.Args, "--recursive")
 	}
+	cloneCmd.Args = append(cloneCmd.Args, "--depth 1")
 	cloneCmd.Args = append(cloneCmd.Args, u.String())
 
 	return p.run(cloneCmd)
