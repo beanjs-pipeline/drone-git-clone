@@ -67,8 +67,9 @@ func (p *Plugin) Exec() error {
 	if p.Recursive {
 		cloneCmd.Args = append(cloneCmd.Args, "--recursive")
 	}
-	cloneCmd.Args = append(cloneCmd.Args, "--depth 1")
+	cloneCmd.Args = append(cloneCmd.Args, "--depth", "1")
 	cloneCmd.Args = append(cloneCmd.Args, u.String())
 
+	log.Printf("cache dir: %s", cacheDir)
 	return p.run(cloneCmd)
 }
